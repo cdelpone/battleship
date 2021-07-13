@@ -1,41 +1,26 @@
-require 'spec_helper'
+require './lib/ship'
 
 RSpec.describe Ship do
+
   before (:each) do
-    @cruiser = Ship.new("Cruiser", 3)
+    @cruiser = Ship.new('Cruiser', 3)
   end
 
-  it 'exists with attributes' do
-    expect(@cruiser).to be_a Ship
-    expect(@cruiser.name).to eq("Cruiser")
-    expect(@cruiser.length).to eq(3)
-  end
+  describe 'Ship' do
+    it 'is an istance of ship' do
+      expect(@cruiser).to be_instance_of (Ship)
+    end
 
-  it 'has full health' do
-    expect(@cruiser.health).to eq(3)
-  end
+    it 'has a name' do
+      expect(@cruiser.name).to eq('Cruiser')
+    end
 
-  it 'sunk is false' do
-    expect(@cruiser.sunk?).to eq false
-  end
+    it 'has length' do
+      expect(@cruiser.length).to eq(3)
+    end
 
-  it 'takes a hit and decreases health' do
-    @cruiser.hit
-
-    expect(@cruiser.health).to eq(2)
-
-    @cruiser.hit
-
-    expect(@cruiser.health).to eq(1)
-  end
-
-  it 'sinks after 3 hits' do
-    2.times { @cruiser.hit }
-
-    expect(@cruiser.sunk?).to eq false
-
-    @cruiser.hit
-
-    expect(@cruiser.sunk?).to eq true
+    it 'has health' do
+      expect(@cruiser.health).to eq(3)
+    end
   end
 end
