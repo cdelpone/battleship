@@ -2,7 +2,7 @@
 
 
 ### Learning Goals
-________________
+________________ 
 
 * Utilize Test Driven Development
 * Practice Algorithmic Thinking
