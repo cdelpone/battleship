@@ -8,10 +8,18 @@ class Ship
   end
 
   def health
-    health = @length
+    health = @length - @hit_count
   end
 
   def hit
+    @hit_count += 1
+  end
 
+  def sunk?
+    if @hit_count == @length
+      true
+    else @hit_count < @length
+      false
+    end
   end
 end
