@@ -23,6 +23,10 @@ RSpec.describe Ship do
       expect(@cruiser.health).to eq(3)
     end
 
+    it 'is floating' do
+      expect(@cruiser.sunk?).to eq(false)
+    end
+    
     it 'can be hit' do
       @cruiser.hit
       expect(@cruiser.health).to eq(2)
