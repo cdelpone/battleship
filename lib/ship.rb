@@ -8,7 +8,7 @@ class Ship
   end
 
   def health
-    health = @length - @hit_count
+    @length - @hit_count
   end
 
   def hit
