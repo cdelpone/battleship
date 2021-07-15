@@ -56,4 +56,28 @@ RSpec.describe Cell do
 
     expect(@cell_2.render).to eq(".")
   end
+
+  xit 'can render the presence of a ship' do
+    @cell_2.place_ship(@cruiser)
+
+    expect(@cell_2.render(true)).to eq("S")
+  end
+
+  it 'can render a hit' do
+    @cell_2.place_ship(@cruiser)
+    expect(@cruiser.sunk?).to eq(false)
+
+    @cell_2.fire_upon
+    expect(@cell_2.render).to eq("H")
+  end
+
+  it 'can render a sunken ship' do
+    @cell_2.place_ship(@cruiser)
+    @cell_2.fire_upon
+    expect(@cruiser.sunk?).to eq(false)
+
+    @cruiser.hit
+    @cruiser.hit
+    expect(@cell_2.render).to eq("X")
+  end
 end
