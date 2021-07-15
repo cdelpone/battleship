@@ -6,6 +6,8 @@ RSpec.describe Cell do
   before (:each) do
     @cell = Cell.new("B4")
     @cruiser = Ship.new("Cruiser", 3)
+    @cell_1 = Cell.new("B4")
+    @cell_2 = Cell.new("C3")
   end
 
   it 'exists with attributes' do
@@ -37,5 +39,15 @@ RSpec.describe Cell do
 
     expect(@cell.ship.health).to eq(2)
     expect(@cell.fired_upon?).to eq(true)
+  end
+
+  it 'can render a neutral cell' do
+    expect(@cell_1.render).to eq(".")
+  end
+
+  it 'can render a miss' do
+    @cell_1.fire_upon
+
+    expect(@cell_1.render).to eq("M")
   end
 end
