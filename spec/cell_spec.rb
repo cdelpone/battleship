@@ -50,4 +50,10 @@ RSpec.describe Cell do
 
     expect(@cell_1.render).to eq("M")
   end
+
+  it 'can render a neutral cell with ship' do
+    @cell_2.place_ship(@cruiser)
+
+    expect(@cell_2.render).to eq(".")
+  end
 end
