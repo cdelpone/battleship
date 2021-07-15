@@ -33,17 +33,17 @@ class Cell
     @hit_status
   end
 
-  def render
-   if fired_upon? == false
+  def render(ship_present = false)
+    if fired_upon? == false
      "."
-   elsif fired_upon? == true && empty? == true
+    elsif fired_upon? == true && empty? == true
      "M"
-   elsif fired_upon? == true && empty? == false
+    elsif fired_upon? == true && empty? == false
      if @ship.health == 0
        "X"
      else
        "H"
      end
-   end
+    end
   end
 end
