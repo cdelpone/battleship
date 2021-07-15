@@ -24,8 +24,10 @@ class Cell
   end
 
   def fire_upon
+    if empty? == false
+      @ship.hit
+    end
     @hit_status = true
-    @ship.hit
   end
 
   def fired_upon?
@@ -35,7 +37,8 @@ class Cell
   def render
    if fired_upon? == false && empty? == true
      "."
+   elsif fired_upon? == true && empty? == true
+     "M"
    end
  end
-
 end
