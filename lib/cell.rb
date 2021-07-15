@@ -1,3 +1,4 @@
+require './ship'
 require 'pry'
 
 class Cell
@@ -6,6 +7,7 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @empty = Array.new
+    @hit_status = false
   end
 
   def ship
@@ -22,15 +24,18 @@ class Cell
   end
 
   def fire_upon
+    @hit_status = true
     @ship.hit
   end
 
   def fired_upon?
-    if @ship.length == @ship.health
-      false
-    else
-      true
-    end
+    @hit_status
   end
+
+  def render
+   if fired_upon? == false && empty? == true
+     "."
+   end
+ end
 
 end
