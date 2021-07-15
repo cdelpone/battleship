@@ -1,5 +1,3 @@
-require 'pry'
-
 class Cell
   attr_reader :coordinate
 

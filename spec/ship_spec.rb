@@ -1,4 +1,4 @@
-require './lib/ship'
+require 'spec_helper'
 
 RSpec.describe Ship do
 
@@ -26,7 +26,7 @@ RSpec.describe Ship do
     it 'is floating' do
       expect(@cruiser.sunk?).to eq(false)
     end
-    
+
     it 'can be hit' do
       @cruiser.hit
       expect(@cruiser.health).to eq(2)

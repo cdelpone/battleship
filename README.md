@@ -140,7 +140,7 @@ pry(main)> cell.fired_upon?
 
 pry(main)> cell.fire_upon
 
-pry(main)> cell.ship.health
+pry(main)> cell.ship.health 
 # => 2
 
 pry(main)> cell.fired_upon?
