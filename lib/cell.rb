@@ -1,4 +1,3 @@
-require './ship'
 require 'pry'
 
 class Cell
@@ -34,11 +33,17 @@ class Cell
     @hit_status
   end
 
-  def render
-   if fired_upon? == false && empty? == true
+  def render(ship_present = false)
+    if fired_upon? == false
      "."
-   elsif fired_upon? == true && empty? == true
+    elsif fired_upon? == true && empty? == true
      "M"
-   end
- end
+    elsif fired_upon? == true && empty? == false
+     if @ship.health == 0
+       "X"
+     else
+       "H"
+     end
+    end
+  end
 end
