@@ -1,3 +1,5 @@
+require 'pry'
+
 class Cell
   attr_reader :coordinate
 
@@ -18,4 +20,17 @@ class Cell
     @empty << @ship
     @ship = ship
   end
+
+  def fire_upon
+    @ship.hit
+  end
+
+  def fired_upon?
+    if @ship.length == @ship.health
+      false
+    else
+      true
+    end
+  end
+
 end
