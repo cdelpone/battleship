@@ -1,4 +1,6 @@
-require 'spec_helper'
+require './lib/ship.rb'
+require './lib/cell.rb'
+require 'pry'
 
 RSpec.describe Cell do
   before (:each) do
@@ -26,5 +28,14 @@ RSpec.describe Cell do
     expect(@cell.empty?).to eq(false)
   end
 
+  it 'can be fired upon' do
+    @cell.place_ship(@cruiser)
 
+    expect(@cell.fired_upon?).to eq(false)
+
+    @cell.fire_upon
+
+    expect(@cell.ship.health).to eq(2)
+    expect(@cell.fired_upon?).to eq(true)
+  end
 end
