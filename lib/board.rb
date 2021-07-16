@@ -26,11 +26,22 @@ class Board
     # iterate over hash keys to check for argument
     @cells.include?(coordinate)
   end
+#method needs to be tested
+  def included_coordinates
+    @cells.keys
+  end
 
   def valid_placement?(ship, coordinates)
     #check if ship length and num of coordinates match
     #compare coordinate length == ship length
     # binding.pry
     ship.length == coordinates.length
+    #helper method -- included_coordinates
+    #included_coordinates.include?(coordinates) -- checks for array element or single coordinate,
+    #not individual coordinates in correct order within included_coordinates array
+    # coordinates.all? do |coordinate|
+    #   included_coordinates.include?(coordinate)
+    # end
+    # checks coordinates are included, but doesn't check for order
   end
 end
