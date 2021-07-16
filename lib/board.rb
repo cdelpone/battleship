@@ -16,9 +16,17 @@ class Board
      "C3" => Cell.new("C3"),
      "C4" => Cell.new("C4"),
      "D1" => Cell.new("D1"),
-     "D2" => Cell.new("D2"),
+     "D2" => Cell.new("D2"),s
      "D3" => Cell.new("D3"),
      "D4" => Cell.new("D4")
     }
+  end
+
+  def valid_coordinate?(coordinate)
+    the first char has to be a letter and within the char set
+    the second has to be a numberand within the numerical set
+    has to be a string
+
+
   end
 end
