@@ -3,6 +3,8 @@ require 'spec_helper'
 RSpec.describe Board do
   before(:each) do
     @board = Board.new
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
   end
 
   describe 'board' do
@@ -29,7 +31,16 @@ RSpec.describe Board do
     end
   end
   describe 'validate placements' do
-    it 'validates placements' do
+    it 'number of coordinates is same length of the ship' do
+      expect(@board.valid_placement?(@cruiser, ["A1", "A2"])).to eq(false)
+      expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to eq(false)
+    end
+
+    xit 'the coordinates are consecutive' do
+      expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to eq(false)
+      expect(@board.valid_placement?(@submarine, ["A1", "C1"])).to eq(false)
+      expect(@board.valid_placement?(@cruiser, ["A3", "A2", "A1"])).to eq(false)
+      expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to eq(false)
     end
   end
 end
