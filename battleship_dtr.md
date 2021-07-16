@@ -54,6 +54,8 @@ Group Member Names: Christina Delpone & Erika Kischuk
 * What do you need (resources, environment, communication) to do your best work?
   * flexible with environments  
 
+
+
 ##### Technical Strengths & Growth Expectations
 * What are each of our strengths?
   * Technical: moderate
@@ -93,3 +95,8 @@ Group Member Names: Christina Delpone & Erika Kischuk
     * How something impacted you emotionally vs directly impacted the task/project
 
 ##### Additional questions that you would like to add
+##### Re-DTR Notes
+* Tuple and paired coding
+* get through iteration 2 by end of weekend
+* come prepared Monday to discuss the how to's of printing the grid
+* if independent work is done - pair driver/navigator to re-write code together such that code is driven by initial author of solution and navigated by other partner to check for mutual understanding

@@ -1,7 +1,6 @@
-require './cell'
-
 class Board
   attr_reader :cells
+
   def initialize
     @cells = {
      "A1" => Cell.new("A1"),
@@ -21,5 +20,36 @@ class Board
      "D3" => Cell.new("D3"),
      "D4" => Cell.new("D4")
     }
+  end
+
+  def valid_coordinate?(coordinate)
+    # iterate over hash keys to check for argument
+    @cells.include?(coordinate)
+  end
+#method needs to be tested
+  def included_coordinates
+    @cells.keys
+  end
+#test this method
+  def possible_placements(ship)
+    accum = []
+    included_coordinates.each_cons(ship.length) do |coords_arr|
+        accum << coords_arr
+    end
+    accum
+  end
+
+  def valid_placement?(ship, coordinates)
+    #check if ship length and num of coordinates match
+    #compare coordinate length == ship length
+    # binding.pry
+    ship.length == coordinates.length
+    #helper method -- included_coordinates
+    possible_placements(ship).include?(coordinates) #-- checks for array element or single coordinate,
+    #not individual coordinates in correct order within included_coordinates array
+    # coordinates.all? do |coordinate|
+    #   possible_placements(ship).include?(coordinate)
+    # end
+    # checks coordinates are included, but doesn't check for order
   end
 end
