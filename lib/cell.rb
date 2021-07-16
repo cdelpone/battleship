@@ -33,7 +33,13 @@ class Cell
 
   def render(ship_present = false)
     if fired_upon? == false
-     "."
+      if ship_present == true
+        "S"
+      elsif ship_present == false
+        "."
+      else
+        "."
+      end
     elsif fired_upon? == true && empty? == true
      "M"
     elsif fired_upon? == true && empty? == false
