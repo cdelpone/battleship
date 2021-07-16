@@ -55,7 +55,7 @@ RSpec.describe Cell do
     expect(@cell_2.render).to eq(".")
   end
 
-  xit 'can render the presence of a ship' do
+  it 'can render the presence of a ship' do
     @cell_2.place_ship(@cruiser)
 
     expect(@cell_2.render(true)).to eq("S")
