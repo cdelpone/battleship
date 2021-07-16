@@ -24,8 +24,13 @@ class Board
 
   def valid_coordinate?(coordinate)
     # iterate over hash keys to check for argument
-
     @cells.include?(coordinate)
+  end
 
+  def valid_placement?(ship, coordinates)
+    #check if ship length and num of coordinates match
+    #compare coordinate length == ship length
+    # binding.pry
+    ship.length == coordinates.length
   end
 end
