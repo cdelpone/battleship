@@ -20,9 +20,6 @@ RSpec.describe Board do
       expect(@board.cells.values.last).to be_a(Cell)
     end
 
-    it 'it can return included coordinates' do
-      expect(@board.included_coordinates).to eq(["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"])
-    end
   end
 
   describe 'validate coordinates' do
@@ -41,10 +38,42 @@ RSpec.describe Board do
     end
 
     it 'the coordinates are consecutive' do
+      # binding.pry
       expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to eq(false)
       expect(@board.valid_placement?(@submarine, ["A1", "C1"])).to eq(false)
       expect(@board.valid_placement?(@cruiser, ["A3", "A2", "A1"])).to eq(false)
       expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to eq(false)
+      expect(@board.valid_placement?(@submarine, ["A4", "B1"])).to eq(false)
+    end
+
+    it 'does not accept diagonal coordinates' do
+      # binding.pry
+      expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
+      expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to eq(false)
+    end
+
+    it 'accepts valid placements' do
+      # binding.pry
+      expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
+      expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to eq(true)
     end
   end
 end
+# methods to test
+# possible_placements(ship)
+# included_coordinates
+
+
+# => [[1, 2, 3], [2, 3, 4]]
+# => [["A", "B", "C"], ["B", "C", "D"]]
+
+# included_coordinates.flat_map do |coords|
+#   coord.split('')
+# end
+# => ["A", "1", "A", "2", "A", "3", "A", "4", "B", "1", "B", "2", "B", "3", "B", "4", "C", "1", "C", "2", "C", "3", "C", "4", "D", "1", "D", "2", "D", "3", "D", "4"]
+
+
+# included_coordinates.map do |coord|
+#   coord.split('')
+# end
+#   => [["A", "1"], ["A", "2"], ["A", "3"], ["A", "4"], ["B", "1"], ["B", "2"], ["B", "3"], ["B", "4"], ["C", "1"], ["C", "2"], ["C", "3"], ["C", "4"], ["D", "1"], ["D", "2"], ["D", "3"], ["D", "4"]]
