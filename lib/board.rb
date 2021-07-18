@@ -71,6 +71,7 @@ class Board
     end
     @coords_nums
   end
+
   def coords_sep_lttrs(coordinates)
     @coords_lttrs = []
     coords_flat(coordinates).each.map do |coords|
