@@ -19,6 +19,7 @@ RSpec.describe Board do
       expect(@board.cells.values.first).to be_a(Cell)
       expect(@board.cells.values.last).to be_a(Cell)
     end
+
   end
 
   describe 'validate coordinates' do
@@ -32,7 +33,37 @@ RSpec.describe Board do
   end
 
   describe 'validate placements' do
+    it 'knows possible rows' do
+      expect(@board.possible_letters(@cruiser)).to eq([["A", "B", "C"], ["B", "C", "D"]])
+    end
+
+    it 'knows possible columns' do
+      expect(@board.possible_numbers(@cruiser)).to eq([["1", "2", "3"], ["2", "3", "4"]])
+    end
+
+    it 'knows and splits individual coordinates' do
+      expect(@board.coords_split(["A2", "A3"])).to eq([["A", "2"], ["A", "3"]])
+    end
+
+    it 'splits coordinates by row' do
+      expect(@board.coords_sep_lttrs(["A2", "A3"])).to eq(["A", "A"])
+    end
+    it 'splits coordinates by column' do
+      expect(@board.coords_sep_nums(["A2", "A3"])).to eq(["2", "3"])
+    end
+
+    it 'can validate by column' do
+      expect(@board.valid_letters?(@submarine, ["A2", "A3", "A4"])).to eq(true)
+    end
+
+    it 'can validate by row' do
+      expect(@board.valid_numbers?(@submarine, ["A2", "A3"])).to eq(true)
+    end
+
     it 'number of coordinates is same length of the ship' do
+      expect(@board.correct_size?(@submarine, ["A2", "A3", "A4"])).to eq(false)
+      expect(@board.correct_size?(@submarine, ["A2"])).to eq(false)
+      expect(@board.correct_size?(@submarine, ["A2", "A3"])).to eq(true)
       expect(@board.valid_placement?(@cruiser, ["A1", "A2"])).to eq(false)
       expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to eq(false)
     end
@@ -46,6 +77,7 @@ RSpec.describe Board do
     end
 
     it 'does not accept diagonal coordinates' do
+      expect(@board.diagonal?(@cruiser, ["A1", "B2", "C3"])).to eq(true)
       expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
       expect(@board.valid_placement?(@submarine, ["C2", "D3"])).to eq(false)
     end
