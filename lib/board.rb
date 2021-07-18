@@ -22,9 +22,9 @@ class Board
     }
   end
 
-  def included_coordinates
-    @cells.keys
-  end
+  # def included_coordinates
+  #   @cells.keys
+  # end
 
   def valid_coordinate?(coordinate)
     # iterate over hash keys to check for argument
@@ -54,7 +54,7 @@ class Board
   end
 
   def possible_numbers(ship)
-    range = 1..4
+    range = "1".."4"
     numbers = range.to_a
     accum_nums = []
     numbers.each_cons(ship.length) do |num_coord|
@@ -63,30 +63,55 @@ class Board
     accum_nums
   end
 
+  def coords_sep(coordinates)
+    @coords_nums = []
+    @coords_lttrs = []
+    # collect_nums = []
+    coords_flat(coordinates).map do |coords|
+      @coords_lttrs << coords[0]
+      @coords_nums << coords[1]
+    end
+    # @coords_nums << collect_nums.map do |nums|
+    #   nums.to_i
+    # end
+  end
+
   def correct_size?(ship, coordinates)
     ship.length == coordinates.length
   end
 
   def coords_flat(coordinates)
-    coordinates.flat_map do |coordinate|
+    coordinates.map do |coordinate|
       coordinate.split('')
     end
   end
 
-  def possible_letters?(ship, coordinates)
-    possible_letters(ship).all?(coords_flat(coordinates))
+  def valid_letters?(ship, coordinates)
+    coords_sep(coordinates)
+    if possible_letters(ship).all?(@coords_lttrs) == true
+      true
+    elsif @coords_lttrs.uniq.length == 1
+      true
+    else
+      false
+    end
   end
 
-  def possible_numbers?(ship, coordinates)
-    possible_numbers(ship).all?(coords_flat(coordinates))
+  def valid_numbers?(ship, coordinates)
+    coords_sep(coordinates)
+    if possible_numbers(ship).all?(@coords_nums) == true
+      true
+    elsif @coords_nums.uniq.length == 1
+      true
+    else
+      false
+    end
   end
 
   def valid_placement?(ship, coordinates)
     if correct_size?(ship, coordinates) == false
       false
-    elsif possible_letters?(ship, coordinates) == true && possible_numbers?(ship, coordinates) == false
-      true
-    elsif possible_letters?(ship, coordinates) == false && possible_numbers?(ship, coordinates) == true
+    elsif valid_numbers?(ship,coordinates) == true && valid_letters?(ship, coordinates) == true
       true
     else
       false
