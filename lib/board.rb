@@ -22,35 +22,18 @@ class Board
     }
   end
 
-  # def included_coordinates
-  #   @cells.keys
-  # end
-
   def valid_coordinate?(coordinate)
-    # iterate over hash keys to check for argument
     @cells.include?(coordinate)
   end
-
-#figure out how make array of coordinates not loop
-# more logic before accum - need to break up letters and numbers,
-# both letters and numbers need to be consecutive
-  # def possible_placements(ship)
-  #   accum = []
-  #   included_coordinates.each_cons(ship.length) do |coords_arr|
-  #     # if consecutive, then shovel
-  #       accum << coords_arr
-  #   end
-  #   accum
-  # end
 
   def possible_letters(ship)
     range = "A".."D"
     letters = range.to_a
-    accum_ltrs= []
-    letters.each_cons(ship.length) do |ltr_coord|
-      accum_ltrs << ltr_coord
+    accum_lttrs = []
+    letters.each_cons(ship.length) do |lttr_coord|
+      accum_lttrs << lttr_coord
     end
-    accum_ltrs
+    accum_lttrs
   end
 
   def possible_numbers(ship)
@@ -65,8 +48,7 @@ class Board
 
   def coords_sep_nums(coordinates)
     @coords_nums = []
-    # collect_nums = []
-    coords_flat(coordinates).each.map do |coords|
+    coords_split(coordinates).map do |coords|
       @coords_nums << coords[1]
     end
     @coords_nums
@@ -74,28 +56,24 @@ class Board
 
   def coords_sep_lttrs(coordinates)
     @coords_lttrs = []
-    coords_flat(coordinates).each.map do |coords|
+    coords_split(coordinates).map do |coords|
       @coords_lttrs << coords[0]
     end
     @coords_lttrs
-    # @coords_nums << collect_nums.map do |nums|
-    #   nums.to_i
-    # end
   end
 
   def correct_size?(ship, coordinates)
     ship.length == coordinates.length
   end
 
-  def coords_flat(coordinates)
+  def coords_split(coordinates)
     coordinates.map do |coordinate|
       coordinate.split('')
     end
   end
 
   def valid_letters?(ship, coordinates)
-    # coords_sep_lttrs(coordinates)
-    if possible_letters(ship).include?(coords_sep_lttrs(coordinates)) == true
+    if possible_letters(ship).include?(coords_sep_lttrs(coordinates))
       true
     elsif @coords_lttrs.uniq.length == 1
       true
@@ -105,8 +83,7 @@ class Board
   end
 
   def valid_numbers?(ship, coordinates)
-    # coords_sep_nums(coordinates)
-    if possible_numbers(ship).include?(coords_sep_nums(coordinates)) == true
+    if possible_numbers(ship).include?(coords_sep_nums(coordinates))
       true
     elsif @coords_nums.uniq.length == 1
       true
@@ -116,7 +93,7 @@ class Board
   end
 
   def diagonal?(ship, coordinates)
-    if possible_numbers(ship).include?(coords_sep_nums(coordinates)) == true && possible_letters(ship).include?(coords_sep_lttrs(coordinates)) == true
+    if possible_numbers(ship).include?(coords_sep_nums(coordinates)) && possible_letters(ship).include?(coords_sep_lttrs(coordinates))
       true
     else
       false
@@ -126,41 +103,20 @@ class Board
   def valid_placement?(ship, coordinates)
     if correct_size?(ship, coordinates) == false
       false
-    elsif diagonal?(ship, coordinates) == true
+    elsif diagonal?(ship, coordinates)
       false
-    elsif valid_numbers?(ship,coordinates) == true && valid_letters?(ship, coordinates) == true
+    elsif valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates)
       true
     else
       false
     end
   end
-end
 
-# ship.length == coordinates.length
-#
-#
-# def valid_placement?(ship, coordinates)
-# possible_placements(ship).include?(coordinates)
-#
-# coords_flat = coordinates.flat_map do |coordinate|
-#   coordinate.split('')
-# end
-# coords_flat.all?(possible_letters)
-# coords_flat.all?(possible_numbers)
-#end
-  # def consecutive_numbers(coordinates)#(or coords)
-  #   # numbers = split the value of cell and collect numbers
-  #   numbers = coordinates.split('')
-  #   numbers.each_cons(numbers.length) do |num1, num2|
-  #     num1 + 1 == num2 # or num1 == num1
-  #     #if the letter is the same, then check the numbers are consec
-  #     #if the number is the same, then check the letters are consec
-  #   end
-  #   # if consecutive_letters is true, then consecutive_numbers is false
-  #   # if consecutive_numbers is true, then consecutive_letters is false
-  # end
-  #
-  # def consecutive_letters(coordinates)#(or coords)
-  #   # confirm letters are consecutive
-  #   # D can't have A after it
-  # end
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coordinate|
+        @cells[coordinate].place_ship(ship)
+      end
+    end
+  end
+end

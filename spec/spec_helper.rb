@@ -1,6 +1,6 @@
-# require 'simplecov'
-#
-# SimpleCov.start
+require 'simplecov'
+
+SimpleCov.start
 require 'pry'
 
 require './lib/ship'
