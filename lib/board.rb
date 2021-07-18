@@ -105,10 +105,18 @@ class Board
       false
     elsif diagonal?(ship, coordinates)
       false
-    elsif valid_numbers?(ship,coordinates) && valid_letters?(ship, coordinates)
+    elsif valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates)
       true
     else
       false
+    end
+  end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coordinate|
+        @cells[coordinate].place_ship(ship)
+      end
     end
   end
 end
