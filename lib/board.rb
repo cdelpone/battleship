@@ -63,14 +63,20 @@ class Board
     accum_nums
   end
 
-  def coords_sep(coordinates)
+  def coords_sep_nums(coordinates)
     @coords_nums = []
-    @coords_lttrs = []
     # collect_nums = []
-    coords_flat(coordinates).map do |coords|
-      @coords_lttrs << coords[0]
+    coords_flat(coordinates).each.map do |coords|
       @coords_nums << coords[1]
     end
+    @coords_nums
+  end
+  def coords_sep_lttrs(coordinates)
+    @coords_lttrs = []
+    coords_flat(coordinates).each.map do |coords|
+      @coords_lttrs << coords[0]
+    end
+    @coords_lttrs
     # @coords_nums << collect_nums.map do |nums|
     #   nums.to_i
     # end
@@ -87,8 +93,8 @@ class Board
   end
 
   def valid_letters?(ship, coordinates)
-    coords_sep(coordinates)
-    if possible_letters(ship).all?(@coords_lttrs) == true
+    # coords_sep_lttrs(coordinates)
+    if possible_letters(ship).include?(coords_sep_lttrs(coordinates)) == true
       true
     elsif @coords_lttrs.uniq.length == 1
       true
@@ -98,8 +104,8 @@ class Board
   end
 
   def valid_numbers?(ship, coordinates)
-    coords_sep(coordinates)
-    if possible_numbers(ship).all?(@coords_nums) == true
+    # coords_sep_nums(coordinates)
+    if possible_numbers(ship).include?(coords_sep_nums(coordinates)) == true
       true
     elsif @coords_nums.uniq.length == 1
       true
@@ -108,8 +114,18 @@ class Board
     end
   end
 
+  def diagonal?(ship, coordinates)
+    if possible_numbers(ship).include?(coords_sep_nums(coordinates)) == true && possible_letters(ship).include?(coords_sep_lttrs(coordinates)) == true
+      true
+    else
+      false
+    end
+  end
+
   def valid_placement?(ship, coordinates)
     if correct_size?(ship, coordinates) == false
+      false
+    elsif diagonal?(ship, coordinates) == true
       false
     elsif valid_numbers?(ship,coordinates) == true && valid_letters?(ship, coordinates) == true
       true
