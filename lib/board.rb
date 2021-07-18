@@ -26,11 +26,13 @@ class Board
     # iterate over hash keys to check for argument
     @cells.include?(coordinate)
   end
-#method needs to be tested
+
   def included_coordinates
     @cells.keys
   end
-#test this method
+
+#figure out how make array of coordinates not loop
+# more logic before accum - need to break up letters and numbers, both letters and numbers need to be consecutive
   def possible_placements(ship)
     accum = []
     included_coordinates.each_cons(ship.length) do |coords_arr|
@@ -39,10 +41,17 @@ class Board
     accum
   end
 
+  # def consec_number_coords(coords)
+    # numbers = split the value of cell and collect numbers
+
+  #   numbers.each_cons(numbers.length) do |num1, num2|
+  #     num1 + 1 == num2
+  #   end
+  # end
+
   def valid_placement?(ship, coordinates)
     #check if ship length and num of coordinates match
     #compare coordinate length == ship length
-    # binding.pry
     ship.length == coordinates.length
     #helper method -- included_coordinates
     possible_placements(ship).include?(coordinates) #-- checks for array element or single coordinate,
