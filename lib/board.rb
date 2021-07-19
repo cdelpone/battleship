@@ -137,7 +137,7 @@ class Board
 
   def render(ship_present = false)
     rendered_cells = @cells.values.map do |cell|
-      cell.render
+      cell.render(ship_present)
     end
     letters = ("A ".."D ").to_a
     numbers = ("1".."4").to_a
