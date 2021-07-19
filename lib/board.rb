@@ -100,10 +100,25 @@ class Board
     end
   end
 
+  def not_occupied?(coordinate)
+    @cells[coordinate].empty?
+  end
+
+  def check_given_cells(coordinates)
+    results = []
+    coordinates.each do |coordinate|
+      results << not_occupied?(coordinate)
+    end
+    results.include?(false)
+  end
+
+
   def valid_placement?(ship, coordinates)
     if correct_size?(ship, coordinates) == false
       false
     elsif diagonal?(ship, coordinates)
+      false
+    elsif check_given_cells(coordinates) == true
       false
     elsif valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates)
       true
