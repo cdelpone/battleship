@@ -104,12 +104,19 @@ RSpec.describe Board do
     end
 
     it 'only places one ship per cell' do
-
       @board.place(@cruiser, ["A1", "A2", "A3"])
+
       expect(@board.not_occupied?("A1")).to eq(false)
       expect(@board.not_occupied?("B1")).to eq(true)
       expect(@board.check_given_cells(["A1", "A2"])).to eq(true)
       expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
+    end
+  end
+
+  describe 'renders board' do
+    it 'returns a string' do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
     end
   end
 end
