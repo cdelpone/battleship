@@ -134,4 +134,16 @@ class Board
       end
     end
   end
+
+  def render(ship_present = false)
+    rendered_cells = @cells.values.map do |cell|
+      cell.render
+    end
+    letters = ("A ".."D ").to_a
+    numbers = ("1".."4").to_a
+    joined = rendered_cells.each_slice(4).map do |sliced|
+      sliced.join(" ") + " \n"
+    end
+    str_rep = (numbers.join(" ") + " \n").prepend("  ") + letters.zip(joined).join("")
+  end
 end

@@ -116,6 +116,8 @@ RSpec.describe Board do
   describe 'renders board' do
     it 'returns a string' do
       @board.place(@cruiser, ["A1", "A2", "A3"])
+      # require "pry"; binding.pry
+      expect(@board.render).to be_a String
       expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
     end
   end
