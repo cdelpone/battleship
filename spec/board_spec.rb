@@ -126,5 +126,27 @@ RSpec.describe Board do
 
       expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
     end
+
+    it 'can render a hit' do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      @board.cells["A1"].fire_upon
+
+      expect(@board.render).to eq("  1 2 3 4 \nA H . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    it 'can render a hit showing hidden ships' do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      @board.cells["A1"].fire_upon
+
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA H S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    it 'can render a sunken ship' do
+      @board.place(@submarine, ["C1", "C2"])
+      @board.cells["C1"].fire_upon
+      @board.cells["C2"].fire_upon
+
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC X X . . \nD . . . . \n")
+    end
   end
 end
