@@ -3,6 +3,7 @@ require_relative "board"
 require_relative "ship"
 
 class Game
+  attr_reader :comp_ships, :user_board, :comp_board
 
   def initialize
     @user_board = Board.new
@@ -11,6 +12,7 @@ class Game
     @user_cruiser = Ship.new("Cruiser", 3)
     @comp_sub = Ship.new("Submarine", 2)
     @comp_cruiser = Ship.new("Cruiser", 3)
+    @comp_ships = [@comp_sub, @comp_cruiser]
   end
 
   def start_game
@@ -25,6 +27,19 @@ class Game
     end
   end
 
+  def comp_ship_placement
+    until @comp_ships.empty?
+      @comp_ships.each do |ship|
+        placement = @comp_board.included_cells.sample(ship.length)
+        if @comp_board.valid_placement?(ship, placement)
+          @comp_board.place(ship, placement)
+          @comp_ships.shift
+        end
+      end
+    end
+  end
+
+
   def quit
     p "Byeeeeeeeee!"
     exit
@@ -38,7 +53,7 @@ class Game
     end
     @start_game
   end
-
+end
   # def play_game
   #   #computer_placement
   #   #player_placement
@@ -47,7 +62,8 @@ class Game
   #
   # def computer_placement
   #   #random placement
-  # end
+#   pull random key out of possible keys and check  for validity
+ # end
   #
   # def player_placement
   #   p "I have laid out my ships on the grid. /n You now need to lay out your two ships. /n The #{ship1.name} is #{ship1.length} units long and the  #{ship1.name} is #{ship2.length} units long."
@@ -96,7 +112,3 @@ class Game
   #     player_shot = gets.chomp.upcase
   #   end
   # end
-end
-
-game = Game.new
-game.start_game
