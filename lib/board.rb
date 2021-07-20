@@ -24,6 +24,10 @@ class Board
     }
   end
 
+  def included_cells
+    @cells.keys
+  end
+  
   def valid_coordinate?(coordinate)
     @cells.include?(coordinate)
   end

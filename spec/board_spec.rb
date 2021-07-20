@@ -18,6 +18,7 @@ RSpec.describe Board do
       expect(@board.cells.values.length).to eq(16)
       expect(@board.cells.values.first).to be_a(Cell)
       expect(@board.cells.values.last).to be_a(Cell)
+      expect(@board.included_cells).to eq(["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"])
     end
 
   end
