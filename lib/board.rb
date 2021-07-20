@@ -1,3 +1,5 @@
+require_relative 'cell'
+
 class Board
   attr_reader :cells
 
@@ -47,19 +49,15 @@ class Board
   end
 
   def coords_sep_nums(coordinates)
-    @coords_nums = []
     coords_split(coordinates).map do |coords|
-      @coords_nums << coords[1]
+      coords[1]
     end
-    @coords_nums
   end
 
   def coords_sep_lttrs(coordinates)
-    @coords_lttrs = []
     coords_split(coordinates).map do |coords|
-      @coords_lttrs << coords[0]
+       coords[0]
     end
-    @coords_lttrs
   end
 
   def correct_size?(ship, coordinates)
@@ -73,31 +71,16 @@ class Board
   end
 
   def valid_letters?(ship, coordinates)
-    if possible_letters(ship).include?(coords_sep_lttrs(coordinates))
-      true
-    elsif @coords_lttrs.uniq.length == 1
-      true
-    else
-      false
-    end
+    possible_letters(ship).include?(coords_sep_lttrs(coordinates)) ||
+    coords_sep_lttrs(coordinates).uniq.length == 1
   end
 
   def valid_numbers?(ship, coordinates)
-    if possible_numbers(ship).include?(coords_sep_nums(coordinates))
-      true
-    elsif @coords_nums.uniq.length == 1
-      true
-    else
-      false
-    end
+    possible_numbers(ship).include?(coords_sep_nums(coordinates)) || coords_sep_nums(coordinates).uniq.length == 1
   end
 
   def diagonal?(ship, coordinates)
-    if possible_numbers(ship).include?(coords_sep_nums(coordinates)) && possible_letters(ship).include?(coords_sep_lttrs(coordinates))
-      true
-    else
-      false
-    end
+    possible_numbers(ship).include?(coords_sep_nums(coordinates)) && possible_letters(ship).include?(coords_sep_lttrs(coordinates))
   end
 
   def not_occupied?(coordinate)
@@ -112,19 +95,8 @@ class Board
     results.include?(false)
   end
 
-
   def valid_placement?(ship, coordinates)
-    if correct_size?(ship, coordinates) == false
-      false
-    elsif diagonal?(ship, coordinates)
-      false
-    elsif check_given_cells(coordinates) == true
-      false
-    elsif valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates)
-      true
-    else
-      false
-    end
+    correct_size?(ship, coordinates) && valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates) && !check_given_cells(coordinates) && !diagonal?(ship, coordinates)
   end
 
   def place(ship, coordinates)
