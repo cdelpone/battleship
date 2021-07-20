@@ -96,7 +96,6 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-<<<<<<< HEAD
     if diagonal?(ship, coordinates)
       false
     elsif !check_given_cells(coordinates) && correct_size?(ship, coordinates) && valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates)
@@ -104,9 +103,6 @@ class Board
     else
       false
     end
-=======
-    correct_size?(ship, coordinates) && valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates) && !check_given_cells(coordinates) && !diagonal?(ship, coordinates)
->>>>>>> 64ad9192600141b90185007e6a52a0116e507960
   end
 
   def place(ship, coordinates)
