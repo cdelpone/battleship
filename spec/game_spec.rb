@@ -5,12 +5,10 @@ RSpec.describe Game do
     @game = Game.new
   end
 
-  it 'exists' do
-    expect(@game).to be_a Game
+  describe 'game' do
+    it 'is a Game' do
+      expect(@game).to be_a Game
+    end
   end
-
-  xit 'shows the main menu to play or quit' do
-    expect(@game.start_game).to
-  end
-
+  
 end

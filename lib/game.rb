@@ -40,7 +40,6 @@ class Game
 
   # def play_game
   #   #computer_placement
-
   #   #player_placement
   #   #need to convert integer to literal
   # end
@@ -64,22 +63,22 @@ class Game
   #     p "Those are invalid coordinates. Please try again:"
   #     loop
   #   end
-  #   #if player_ship_placement is valid
-  #       #player ship placed on the board
-  #       @board.render(true)
-  #       p "Enter the squares for the #{ship2.name} (#{ship2.length} spaces):"
-  #   #if player_ship_placement is not valid
-  #       p "Enter the squares for the #{ship1.name} (#{ship1.length} spaces):"
-  #       player_ship_placement = gets.chomp.upcase
-  #       #until player_ship_placement is valid
-  #       p "Those are invalid coordinates. Please try again:"
-  #       player_ship_placement = gets.chomp.upcase
-  #
-  #       # then player ship placed on the board
-  #       @board.render(true)
-  #       p "Enter the squares for the #{ship2.name} (#{ship2.length} spaces):"
-  #       #if player_ship_placement is not valid
-  #           p "Enter the squares for the #{ship1.name} (#{ship1.length} spaces):"
+    # #if player_ship_placement is valid
+    #     #player ship placed on the board
+    #     @board.render(true)
+    #     p "Enter the squares for the #{ship2.name} (#{ship2.length} spaces):"
+    # #if player_ship_placement is not valid
+    #     p "Enter the squares for the #{ship1.name} (#{ship1.length} spaces):"
+    #     player_ship_placement = gets.chomp.upcase
+    #     #until player_ship_placement is valid
+    #     p "Those are invalid coordinates. Please try again:"
+    #     player_ship_placement = gets.chomp.upcase
+    #
+    #     # then player ship placed on the board
+    #     @board.render(true)
+    #     p "Enter the squares for the #{ship2.name} (#{ship2.length} spaces):"
+    #     #if player_ship_placement is not valid
+    #         p "Enter the squares for the #{ship1.name} (#{ship1.length} spaces):"
   #           player_ship_placement = gets.chomp.upcase
   #           #until player_ship_placement is valid
   #           p "Those are invalid coordinates. Please try again:"
