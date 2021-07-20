@@ -114,13 +114,9 @@ class Board
 
 
   def valid_placement?(ship, coordinates)
-    if correct_size?(ship, coordinates) == false
+    if diagonal?(ship, coordinates)
       false
-    elsif diagonal?(ship, coordinates)
-      false
-    elsif check_given_cells(coordinates) == true
-      false
-    elsif valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates)
+    elsif !check_given_cells(coordinates) && correct_size?(ship, coordinates) && valid_numbers?(ship, coordinates) && valid_letters?(ship, coordinates)
       true
     else
       false
