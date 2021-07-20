@@ -1,34 +1,30 @@
 class Cell
-  attr_reader :coordinate
+  attr_reader :coordinate,
+              :ship
 
   def initialize(coordinate)
     @coordinate = coordinate
-    @empty = Array.new
-    @hit_status = false
-  end
-
-  def ship
-    @ship
+    @ship = nil
+    @fired_upon = false
   end
 
   def empty?
-    @empty.empty?
+    @ship == nil
   end
 
   def place_ship(ship)
-    @empty << @ship
     @ship = ship
   end
 
   def fire_upon
-    if empty? == false
+    if @ship != nil
       @ship.hit
     end
-    @hit_status = true
+    @fired_upon = true
   end
 
   def fired_upon?
-    @hit_status
+    @fired_upon
   end
 
   def render(ship_present = false)
