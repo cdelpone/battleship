@@ -2,6 +2,8 @@ require_relative "board"
 require_relative "ship"
 require "pp"
 require "awesome_print"
+require 'colorize'
+
 
 class Game
   attr_reader :comp_ships, :user_board, :comp_board
@@ -18,7 +20,7 @@ class Game
   end
 
   def start_game
-    puts "Welcome to BATTLESHIP"
+    puts "Welcome to BATTLESHIP".colorize(:color => :blue)
     sleep 1.0
     puts "Enter p to play. Enter q to quit."
     input = gets.chomp.downcase
@@ -103,9 +105,9 @@ class Game
 
   def take_turns
     until (@user_sub.sunk? && @user_cruiser.sunk?) || (@comp_sub.sunk? && @comp_cruiser.sunk?)
-      print "Computer Board\n"
+      print "=====Computer Board=====\n".colorize(:color => :light_blue)
       print @comp_board.render
-      print "Player Board\n"
+      print "=====Player Board=====\n".colorize(:color => :light_blue)
       print @user_board.render(true)
       player_shot
       comp_shot
