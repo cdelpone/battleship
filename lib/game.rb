@@ -15,6 +15,11 @@ class Game
     @user_ships = [@user_cruiser, @user_sub]
   end
 
+  def quit
+    p "Byeeeeeeeee!"
+    exit
+  end
+
   def start_game
     p 'Welcome to BATTLESHIP'
     sleep 1.0
@@ -24,7 +29,6 @@ class Game
       comp_ship_placement
       player_placement
       take_turns
-      start_game
     elsif input == "q" || "quit"
       quit
     end
@@ -62,7 +66,6 @@ class Game
       end
     end
   end
-
 
   def player_shot
     p "Enter the coordinate for your shot:"
@@ -115,23 +118,13 @@ class Game
     end_game
   end
 
-  def quit
-    p "Byeeeeeeeee!"
-    exit
-  end
-
   def end_game
     if @comp_sub.sunk? && @comp_cruiser.sunk?
       p "You won!"
+      start_game
     else @user_sub.sunk? && @user_cruiser.sunk?
       p "I won!!!"
+      start_game
     end
   end
 end
-  # def play_game
-  #   #computer_placement
-  #   #player_placement
-  # end
-  #
-  # def computer_placement
-  #   #random placement
