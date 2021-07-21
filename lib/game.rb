@@ -20,9 +20,11 @@ class Game
     p 'Enter p to play. Enter q to quit.'
     input = gets.chomp.downcase
     if input == "p" || "play"
-      # @play_game
+      comp_ship_placement
+      take_turns
+      start_game
     elsif input == "q" || "quit"
-      @quit
+      quit
     end
   end
 
@@ -40,15 +42,53 @@ class Game
 
   def player_shot
     p "Enter the coordinate for your shot:"
-    coordinate = gets.chomp
-    until @comp_board.valid_coordinate?(coordinate)
+    @user_coordinate = gets.chomp.upcase
+    until @comp_board.valid_coordinate?(@user_coordinate)
       # coordinate = gets.chomp
-      if @comp_board.valid_coordinate?(coordinate) == false
+      if @comp_board.valid_coordinate?(@user_coordinate) == false
         p "Please enter a valid coordinate:"
-        coordinate = gets.chomp
+        @user_coordinate = gets.chomp.upcase
       end
     end
-    @comp_board.cells[coordinate].fire_upon
+    @comp_board.cells[@user_coordinate].fire_upon
+    @user_results = @comp_board.cells[@user_coordinate].render
+  end
+
+  def comp_shot
+    @comp_coordinate = @comp_board.included_cells.sample
+    until @user_board.valid_coordinate?(@comp_coordinate)
+      if @user_board.valid_coordinate?(@comp_coordinate) == false
+        @comp_coordinate = @comp_board.included_cells.sample
+      end
+    end
+    @user_board.cells[@comp_coordinate].fire_upon
+    @comp_results = @user_board.cells[@comp_coordinate].render
+  end
+
+  def result(render)
+    if render == "M"
+      "miss"
+    elsif render == "H"
+      "hit"
+    elsif render == "X"
+      "sink"
+    end
+  end
+
+  def results
+    p "Your shot on #{@user_coordinate} was #{result(@user_results)}."
+    p "My shot on #{@comp_coordinate} was a #{result(@comp_results)}."
+  end
+
+  def take_turns
+    until (@user_sub.sunk? && @user_cruiser.sunk?) || (@comp_sub.sunk? && @comp_cruiser.sunk?)
+      p @comp_board.render
+      p @user_board.render(true)
+      player_shot
+      comp_shot
+      results
+    end
+    end_game
   end
 
   def quit
@@ -57,12 +97,11 @@ class Game
   end
 
   def end_game
-    if #user sinks all the comp ships
+    if @comp_sub.sunk? && @comp_cruiser.sunk?
       p "You won!"
-    else #comp sinks all the user ships
+    else @user_sub.sunk? && @user_cruiser.sunk?
       p "I won!!!"
     end
-    @start_game
   end
 end
   # def play_game
