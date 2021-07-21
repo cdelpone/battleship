@@ -12,6 +12,7 @@ class Game
     @comp_sub = Ship.new("Submarine", 2)
     @comp_cruiser = Ship.new("Cruiser", 3)
     @comp_ships = [@comp_sub, @comp_cruiser]
+    @user_ships = [@user_cruiser, @user_sub]
   end
 
   def start_game
@@ -21,6 +22,7 @@ class Game
     input = gets.chomp.downcase
     if input == "p" || "play"
       comp_ship_placement
+      player_placement
       take_turns
       start_game
     elsif input == "q" || "quit"
@@ -39,6 +41,28 @@ class Game
       end
     end
   end
+
+  def player_placement
+    p "I have laid out my ships on the grid." +
+     "You now need to lay our your two ships." +
+     "The Cruiser is three units long and the Submarine is two units long."
+    until @user_ships.empty?
+      @user_ships.each do |ship|
+        p @user_board.render(true)
+        p "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
+        user_placement = gets.chomp.upcase.split(" ")
+        until @user_board.valid_placement?(ship, user_placement)
+          p "Those are invalid coordinates. Please try again:"
+          user_placement = gets.chomp.upcase.split(" ")
+        end
+        if @user_board.valid_placement?(ship, user_placement)
+          @user_board.place(ship, user_placement)
+          @user_ships.shift
+        end
+      end
+    end
+  end
+
 
   def player_shot
     p "Enter the coordinate for your shot:"
