@@ -1,5 +1,7 @@
 require_relative "board"
 require_relative "ship"
+require "pp"
+require "awesome_print"
 
 class Game
   attr_reader :comp_ships, :user_board, :comp_board
@@ -15,21 +17,16 @@ class Game
     @user_ships = [@user_cruiser, @user_sub]
   end
 
-  def quit
-    p "Byeeeeeeeee!"
-    exit
-  end
-
   def start_game
-    p 'Welcome to BATTLESHIP'
+    puts "Welcome to BATTLESHIP"
     sleep 1.0
-    p 'Enter p to play. Enter q to quit.'
+    puts "Enter p to play. Enter q to quit."
     input = gets.chomp.downcase
-    if input == "p" || "play"
+    if input == "p" || input == "play"
       comp_ship_placement
       player_placement
       take_turns
-    elsif input == "q" || "quit"
+    elsif input == "q" || input == "quit"
       quit
     end
   end
@@ -47,16 +44,14 @@ class Game
   end
 
   def player_placement
-    p "I have laid out my ships on the grid." +
-     "You now need to lay our your two ships." +
-     "The Cruiser is three units long and the Submarine is two units long."
+    print "I have laid out my ships on the grid. \nYou now need to lay our your two ships. \nThe Cruiser is three units long and the Submarine is two units long.\n"
     until @user_ships.empty?
       @user_ships.each do |ship|
-        p @user_board.render(true)
-        p "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
+        print @user_board.render(true)
+        print "Enter the squares for the #{ship.name} (#{ship.length} spaces):\n"
         user_placement = gets.chomp.upcase.split(" ")
         until @user_board.valid_placement?(ship, user_placement)
-          p "Those are invalid coordinates. Please try again:"
+          print "Those are invalid coordinates. Please try again:\n"
           user_placement = gets.chomp.upcase.split(" ")
         end
         if @user_board.valid_placement?(ship, user_placement)
@@ -68,12 +63,12 @@ class Game
   end
 
   def player_shot
-    p "Enter the coordinate for your shot:"
+    print "Enter the coordinate for your shot:"
     @user_coordinate = gets.chomp.upcase
     until @comp_board.valid_coordinate?(@user_coordinate)
       # coordinate = gets.chomp
       if @comp_board.valid_coordinate?(@user_coordinate) == false
-        p "Please enter a valid coordinate:"
+        print "Please enter a valid coordinate:\n"
         @user_coordinate = gets.chomp.upcase
       end
     end
@@ -103,14 +98,15 @@ class Game
   end
 
   def results
-    p "Your shot on #{@user_coordinate} was #{result(@user_results)}."
-    p "My shot on #{@comp_coordinate} was a #{result(@comp_results)}."
+    print "Your shot on #{@user_coordinate} was #{result(@user_results)}. \nMy shot on #{@comp_coordinate} was a #{result(@comp_results)}.\n"
   end
 
   def take_turns
     until (@user_sub.sunk? && @user_cruiser.sunk?) || (@comp_sub.sunk? && @comp_cruiser.sunk?)
-      p @comp_board.render
-      p @user_board.render(true)
+      print "Computer Board\n"
+      print @comp_board.render
+      print "Player Board\n"
+      print @user_board.render(true)
       player_shot
       comp_shot
       results
@@ -118,12 +114,18 @@ class Game
     end_game
   end
 
+  def quit
+    print "Byeeeeeeeee!"
+    sleep 1.0
+    exit
+  end
+
   def end_game
     if @comp_sub.sunk? && @comp_cruiser.sunk?
-      p "You won!"
+      print "You won!"
       start_game
     else @user_sub.sunk? && @user_cruiser.sunk?
-      p "I won!!!"
+      print "I won!!!"
       start_game
     end
   end
