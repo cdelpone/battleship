@@ -27,9 +27,9 @@ class Board
   def included_cells
     @cells.keys
   end
-  
+
   def valid_coordinate?(coordinate)
-    @cells.include?(coordinate)
+    @cells.include?(coordinate) && @cells[coordinate].fired_upon? == false
   end
 
   def possible_letters(ship)

@@ -17,5 +17,12 @@ RSpec.describe Game do
       expect(@game.comp_ships.empty?).to eq(true)
     end
   end
-
+  #
+  # describe 'turn' do
+  #   it 'player shot valid' do
+  #     @game.comp_ship_placement
+  #     binding.pry
+  #
+  #   end
+  # end
 end
