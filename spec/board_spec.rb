@@ -154,5 +154,21 @@ RSpec.describe Board do
 
       expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC X X . . \nD . . . . \n")
     end
+
+    it 'can render a miss' do
+      @board.place(@submarine, ["C1", "C2"])
+      @board.cells["C3"].fire_upon
+      @board.cells["C4"].fire_upon
+
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . M M \nD . . . . \n")
+    end
+
+    it 'can render a miss showing hidden ships' do
+      @board.place(@submarine, ["C1", "C2"])
+      @board.cells["C3"].fire_upon
+      @board.cells["C4"].fire_upon
+
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC S S M M \nD . . . . \n")
+    end
   end
 end
