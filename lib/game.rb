@@ -50,6 +50,18 @@ class Game
       end
     end
     @comp_board.cells[coordinate].fire_upon
+    @user_results = @comp_board.cells[coordinate].render
+  end
+
+  def comp_shot
+    coordinate = @comp_board.included_cells.sample
+    until @user_board.valid_coordinate?(coordinate)
+      if @user_board.valid_coordinate?(coordinate) == false
+        coordinate = @comp_board.included_cells.sample
+      end
+    end
+    @user_board.cells[coordinate].fire_upon
+    @comp_results = @user_board.cells[coordinate].render
   end
 
   def quit
