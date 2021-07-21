@@ -69,7 +69,11 @@ class Game
     until @comp_board.valid_coordinate?(@user_coordinate)
       # coordinate = gets.chomp
       if @comp_board.valid_coordinate?(@user_coordinate) == false
-        print "Please enter a valid coordinate:\n"
+        if @comp_board.not_occupied?(@user_coordinate) == false
+          print "You already fired there, try again:\n"
+        else
+          print "Please enter a valid coordinate:\n"
+        end
         @user_coordinate = gets.chomp.upcase
       end
     end
