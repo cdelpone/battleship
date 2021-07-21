@@ -1,8 +1,6 @@
 require_relative "board"
 require_relative "ship"
-
 require 'colorize'
-
 
 class Game
   attr_reader :comp_ships, :user_board, :comp_board
@@ -45,7 +43,7 @@ class Game
   end
 
   def player_placement
-    print "I have laid out my ships on the grid. \nYou now need to lay our your two ships. \nThe Cruiser is three units long and the Submarine is two units long.\n"
+    print "I have laid out my ships on the grid. \nYou now need to lay your two ships. \nThe Cruiser is three units long and the Submarine is two units long.\n"
     until @user_ships.empty?
       @user_ships.each do |ship|
         print @user_board.render(true)
@@ -67,7 +65,6 @@ class Game
     print "Enter the coordinate for your shot:"
     @user_coordinate = gets.chomp.upcase
     until @comp_board.valid_coordinate?(@user_coordinate)
-      # coordinate = gets.chomp
       if @comp_board.valid_coordinate?(@user_coordinate) == false
         print "Please enter a valid coordinate:\n"
         @user_coordinate = gets.chomp.upcase
@@ -123,10 +120,10 @@ class Game
 
   def end_game
     if @comp_sub.sunk? && @comp_cruiser.sunk?
-      print "You won!"
+      print "You won!\n"
       start_game
     else @user_sub.sunk? && @user_cruiser.sunk?
-      print "I won!!!"
+      print "I won!!!\n"
       start_game
     end
   end
