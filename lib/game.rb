@@ -1,7 +1,6 @@
 require_relative "board"
 require_relative "ship"
-require "pp"
-require "awesome_print"
+
 require 'colorize'
 
 
