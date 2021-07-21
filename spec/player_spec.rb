@@ -16,6 +16,7 @@ RSpec.describe Player do
     end
 
     it 'can start with an empty board' do
+      require "pry"; binding.pry
       expect(@user.user_board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
     end
   end
