@@ -2,6 +2,7 @@ require_relative "board"
 require_relative "ship"
 
 class Game
+  attr_reader :comp_ships, :user_board, :comp_board
 
   def initialize
     @user_board = Board.new
@@ -10,6 +11,7 @@ class Game
     @user_cruiser = Ship.new("Cruiser", 3)
     @comp_sub = Ship.new("Submarine", 2)
     @comp_cruiser = Ship.new("Cruiser", 3)
+    @comp_ships = [@comp_sub, @comp_cruiser]
   end
 
   def start_game
@@ -22,6 +24,31 @@ class Game
     elsif input == "q" || "quit"
       @quit
     end
+  end
+
+  def comp_ship_placement
+    until @comp_ships.empty?
+      @comp_ships.each do |ship|
+        placement = @comp_board.included_cells.sample(ship.length)
+        if @comp_board.valid_placement?(ship, placement)
+          @comp_board.place(ship, placement)
+          @comp_ships.shift
+        end
+      end
+    end
+  end
+
+  def player_shot
+    p "Enter the coordinate for your shot:"
+    coordinate = gets.chomp
+    until @comp_board.valid_coordinate?(coordinate)
+      # coordinate = gets.chomp
+      if @comp_board.valid_coordinate?(coordinate) == false
+        p "Please enter a valid coordinate:"
+        coordinate = gets.chomp
+      end
+    end
+    @comp_board.cells[coordinate].fire_upon
   end
 
   def quit
@@ -37,7 +64,7 @@ class Game
     end
     @start_game
   end
-
+end
   # def play_game
   #   #computer_placement
   #   #player_placement
@@ -45,7 +72,3 @@ class Game
   #
   # def computer_placement
   #   #random placement
-  # end
-
-game = Game.new
-game.start_game
