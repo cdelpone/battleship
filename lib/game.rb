@@ -39,6 +39,18 @@ class Game
     end
   end
 
+  def player_shot
+    p "Enter the coordinate for your shot:"
+    coordinate = gets.chomp
+    until @comp_board.valid_coordinate?(coordinate)
+      # coordinate = gets.chomp
+      if @comp_board.valid_coordinate?(coordinate) == false
+        p "Please enter a valid coordinate:"
+        coordinate = gets.chomp
+      end
+    end
+    @comp_board.cells[coordinate].fire_upon
+  end
 
   def quit
     p "Byeeeeeeeee!"
