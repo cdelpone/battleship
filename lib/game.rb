@@ -12,6 +12,12 @@ class Game
     @comp_sub = Ship.new("Submarine", 2)
     @comp_cruiser = Ship.new("Cruiser", 3)
     @comp_ships = [@comp_sub, @comp_cruiser]
+    @user_ships = [@user_cruiser, @user_sub]
+  end
+
+  def quit
+    p "Byeeeeeeeee!"
+    exit
   end
 
   def start_game
@@ -21,8 +27,8 @@ class Game
     input = gets.chomp.downcase
     if input == "p" || "play"
       comp_ship_placement
+      player_placement
       take_turns
-      start_game
     elsif input == "q" || "quit"
       quit
     end
@@ -35,6 +41,27 @@ class Game
         if @comp_board.valid_placement?(ship, placement)
           @comp_board.place(ship, placement)
           @comp_ships.shift
+        end
+      end
+    end
+  end
+
+  def player_placement
+    p "I have laid out my ships on the grid." +
+     "You now need to lay our your two ships." +
+     "The Cruiser is three units long and the Submarine is two units long."
+    until @user_ships.empty?
+      @user_ships.each do |ship|
+        p @user_board.render(true)
+        p "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
+        user_placement = gets.chomp.upcase.split(" ")
+        until @user_board.valid_placement?(ship, user_placement)
+          p "Those are invalid coordinates. Please try again:"
+          user_placement = gets.chomp.upcase.split(" ")
+        end
+        if @user_board.valid_placement?(ship, user_placement)
+          @user_board.place(ship, user_placement)
+          @user_ships.shift
         end
       end
     end
@@ -91,23 +118,13 @@ class Game
     end_game
   end
 
-  def quit
-    p "Byeeeeeeeee!"
-    exit
-  end
-
   def end_game
     if @comp_sub.sunk? && @comp_cruiser.sunk?
       p "You won!"
+      start_game
     else @user_sub.sunk? && @user_cruiser.sunk?
       p "I won!!!"
+      start_game
     end
   end
 end
-  # def play_game
-  #   #computer_placement
-  #   #player_placement
-  # end
-  #
-  # def computer_placement
-  #   #random placement

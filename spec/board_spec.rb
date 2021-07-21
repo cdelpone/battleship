@@ -31,6 +31,11 @@ RSpec.describe Board do
       expect(@board.valid_coordinate?("E1")).to eq(false)
       expect(@board.valid_coordinate?("A22")).to eq(false)
     end
+
+    it 'validates multiple coordinates' do
+      expect(@board.valid_coordinates?(["A1", "A2", "A3"])).to eq(true)
+      expect(@board.valid_coordinates?(["F1", "F2", "F3"])).to eq(false)
+    end
   end
 
   describe 'validate placements' do
