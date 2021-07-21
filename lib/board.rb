@@ -100,7 +100,9 @@ class Board
   end
 
   def not_occupied?(coordinate)
-    @cells[coordinate].empty?
+    if valid_coordinate?(coordinate)
+      @cells[coordinate].empty?
+    end
   end
 
   def check_given_cells(coordinates)
