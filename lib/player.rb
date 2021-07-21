@@ -16,31 +16,28 @@ attr_reader :user, :user_sub, :user_cruiser, :user_board
   #   user_input = gets.chomp.upcase.split(" ")
   # end
 
-    def valid_coordinates?(coordinates)
-      coordinates.any? do |coordinate|
-        valid_coordinate?(coordinate) == false
-      end
+  def tech_debt?(user_input)
+  format_input = coords_split(@user_input)
+    @user_board.all?
+      valid_placement?(format_input)
     end
+  end
 
   def player_placement
     p "I have laid out my ships on the grid. \nYou now need to lay out your two ships. \nThe #{@user_cruiser.name} is #{@user_cruiser.length} units long and the #{@user_sub.name} is #{@user_sub.length} units long."
 
     p @user_board.render
 
-    def loop(ship)
-      p "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
-    end
-
-    loop(@user_cruiser)
-    user_input = gets.chomp.upcase.split(" ")
-    until @user_board.valid_placement?(@user_cruiser, user_input)
+    p "Enter the squares for the #{@user_cruiser.name} (#{@user_cruiser.length} spaces):"
+    @user_input = gets.chomp.upcase.split(" ")
+    until @user_board.valid_placement?(@user_cruiser, user_input) && @user_board.valid_coordinate?(user_input)
       p "Those are invalid coordinates. Please try again:"
       user_input = gets.chomp.upcase.split(" ")
     end
       @user_board.place(@user_cruiser, user_input)
       p @user_board.render(true)
 
-    loop(@user_sub)
+    p "Enter the squares for the #{@user_sub.name} (#{@user_sub.length} spaces):"
     user_input = gets.chomp.upcase.split(" ")
     until @user_board.valid_placement?(@user_sub, user_input)
       p "Those are invalid coordinates. Please try again:"
@@ -49,16 +46,4 @@ attr_reader :user, :user_sub, :user_cruiser, :user_board
       @user_board.place(@user_sub, user_input)
       p @user_board.render(true)
   end
-
-
-  # def player_shot
-  #   p "Enter the coordinate for your shot:"
-  #   if #valid == false
-  #     p "Please enter a valid coordinate:"
-  #   until #valid == true
-  #     player_shot = gets.chomp.upcase
-  #   end
-  # end
-
-
 end

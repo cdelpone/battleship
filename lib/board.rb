@@ -88,7 +88,7 @@ class Board
   end
 
   def not_occupied?(coordinate)
-    @cells[coordinate].empty?
+    @cells[coordinate].empty? && @cells.key?(coordinate)
   end
 
   def check_given_cells(coordinates)
