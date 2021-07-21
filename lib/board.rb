@@ -32,6 +32,18 @@ class Board
     @cells.include?(coordinate) && @cells[coordinate].fired_upon? == false
   end
 
+  def valid_coordinates?(coordinates)
+    @results = []
+    coordinates.each do |coordinate|
+      @results << valid_coordinate?(coordinate)
+    end
+    if @results.include?(false)
+      return false
+    else
+      true
+    end
+  end
+
   def possible_letters(ship)
     range = "A".."D"
     letters = range.to_a
