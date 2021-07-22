@@ -94,6 +94,12 @@ Group Member Names: Christina Delpone & Erika Kischuk
   * Impact vs feedback
     * How something impacted you emotionally vs directly impacted the task/project
 
+ * more time prying together
+ * better time mgmt - consider time to review and explain code and/or code logic
+ * good at knowing when to take a break
+ * setting time blocks with methods and asking for help sooner
+ *
+
 ##### Additional questions that you would like to add
 ##### Re-DTR Notes
 * Tuple and paired coding
